@@ -16,7 +16,7 @@ jobs:
         include:
           - os: windows-latest
             label: Windows
-            build: npx electron-builder --win nsis --x64 -c.win.signAndEditExecutable=true
+            build: npx electron-builder --win nsis --x64
           - os: macos-latest
             label: Mac
             build: npx electron-builder --mac --arm64 --x64
