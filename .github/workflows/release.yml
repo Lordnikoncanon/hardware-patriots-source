@@ -25,25 +25,50 @@ jobs:
             build: npx electron-builder --linux AppImage deb --x64
     steps:
       - uses: actions/checkout@v4
+      - name: Locate the app
+        id: app
+        shell: bash
+        run: |
+          lock=$(find . -name package-lock.json -not -path '*/node_modules/*' | head -1)
+          if [ -z "$lock" ]; then
+            echo "package-lock.json is not in the repository."
+            find . -maxdepth 3 -type f \( -name package.json -o -name package-lock.json \)
+            exit 1
+          fi
+          dir=$(dirname "$lock")
+          echo "dir=$dir" >> "$GITHUB_OUTPUT"
+          echo "App is in $dir"
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
+          cache-dependency-path: ${{ steps.app.outputs.dir }}/package-lock.json
       - run: npm ci
+        working-directory: ${{ steps.app.outputs.dir }}
       - run: npm run build
+        working-directory: ${{ steps.app.outputs.dir }}
       - run: ${{ matrix.build }}
+        working-directory: ${{ steps.app.outputs.dir }}
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: false
+      - name: Collect installers
+        shell: bash
+        working-directory: ${{ steps.app.outputs.dir }}
+        run: |
+          shopt -s nullglob
+          mkdir -p "$GITHUB_WORKSPACE/dist-installers"
+          files=(release/*.exe release/*.dmg release/*.zip release/*.AppImage release/*.deb)
+          if [ ${#files[@]} -eq 0 ]; then
+            echo "The build finished without an installer."
+            ls -la release || true
+            exit 1
+          fi
+          cp -v "${files[@]}" "$GITHUB_WORKSPACE/dist-installers/"
       - uses: actions/upload-artifact@v4
         with:
           name: installers-${{ matrix.label }}
           if-no-files-found: error
-          path: |
-            release/*.exe
-            release/*.dmg
-            release/*.zip
-            release/*.AppImage
-            release/*.deb
+          path: dist-installers/*
 
   release:
     name: Publish to GitHub
@@ -58,7 +83,12 @@ jobs:
           merge-multiple: true
       - name: Read the version
         id: version
-        run: echo "tag=v$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+        shell: bash
+        run: |
+          lock=$(find . -name package-lock.json -not -path '*/node_modules/*' | head -1)
+          dir=$(dirname "$lock")
+          version=$(node -p "require('$dir/package.json').version")
+          echo "tag=v$version" >> "$GITHUB_OUTPUT"
       - uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.version.outputs.tag }}
