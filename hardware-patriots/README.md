@@ -8,6 +8,12 @@ Materials include PLA, PETG, PETG Matte, PETG HF, ABS, ABS-CF, ABS-GF, ASA, ASA-
 
 Printers are Bambu and Prusa.
 
+## Downloads
+
+The Windows, Mac, and Linux installers are on the [Releases](https://github.com/Lordnikoncanon/hardware-patriots-source/releases) page. Download the file for your computer from there.
+
+To publish a new set, open the **Actions** tab, choose **Release installers**, and click **Run workflow**. When the run is green, the installers are attached to the release.
+
 ## Screenshots
 
 ![Hardware Patriots spool shelf](screenshots/shelf-light.png)
