@@ -156,7 +156,7 @@ export function validateDraft(
     errors.printer = "Choose Bambu or Prusa.";
   }
   if (!PRINTER_CASES.includes(draft.printerCase as (typeof PRINTER_CASES)[number])) {
-    errors.printerCase = "Choose a printer case.";
+    errors.printerCase = "Choose filament storage.";
   }
   if (!SPOOL_SIZES.includes(draft.spoolGrams as (typeof SPOOL_SIZES)[number])) {
     errors.remaining = "Choose a spool size.";

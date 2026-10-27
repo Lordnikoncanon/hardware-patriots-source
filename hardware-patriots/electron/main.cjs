@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
-const { app, BrowserWindow, Menu, protocol } = require("electron");
+const { app, BrowserWindow, dialog, Menu, protocol } = require("electron");
 const fs = require("fs");
 const path = require("path");
 
@@ -122,6 +122,26 @@ if (!app.requestSingleInstanceLock()) {
         submenu: [{ role: "about" }, { type: "separator" }, { role: "quit" }],
       });
     }
+
+    menu.push({
+      label: "Help",
+      submenu: [
+        {
+          label: `Version ${app.getVersion()}`,
+          click: () => {
+            const window = BrowserWindow.getFocusedWindow() ?? BrowserWindow.getAllWindows()[0];
+            dialog.showMessageBox(window, {
+              type: "info",
+              title: APP_NAME,
+              message: APP_NAME,
+              detail: `Version ${app.getVersion()}\n\nAdd a spool with its brand, type, color, best use, printer, and filament storage. Brands you add stay on this computer. A spool under 20% is marked low. The shelf is saved on this computer.`,
+              buttons: ["OK"],
+              noLink: true,
+            });
+          },
+        },
+      ],
+    });
 
     Menu.setApplicationMenu(Menu.buildFromTemplate(menu));
     createWindow();

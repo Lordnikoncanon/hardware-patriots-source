@@ -23,7 +23,7 @@ async function download(url, destination) {
   await pipeline(Readable.fromWeb(response.body), createWriteStream(destination));
 }
 
-function rewritePlist(plist) {
+function rewritePlist(plist, appVersion) {
   return plist
     .replace(
       /(<key>CFBundleDisplayName<\/key>\s*<string>)[^<]*(<\/string>)/,
@@ -34,7 +34,12 @@ function rewritePlist(plist) {
     .replace(
       /(<key>CFBundleIdentifier<\/key>\s*<string>)[^<]*(<\/string>)/,
       "$1com.hardwarepatriots.spoolshelf$2",
-    );
+    )
+    .replace(
+      /(<key>CFBundleShortVersionString<\/key>\s*<string>)[^<]*(<\/string>)/,
+      `$1${appVersion}$2`,
+    )
+    .replace(/(<key>CFBundleVersion<\/key>\s*<string>)[^<]*(<\/string>)/, `$1${appVersion}$2`);
 }
 
 for (const arch of ["x64", "arm64"]) {
@@ -71,7 +76,7 @@ for (const arch of ["x64", "arm64"]) {
   if (existsSync(icns)) cpSync(icns, path.join(resources, "electron.icns"));
 
   const plistPath = path.join(appPath, "Contents", "Info.plist");
-  writeFileSync(plistPath, rewritePlist(readFileSync(plistPath, "utf8")));
+  writeFileSync(plistPath, rewritePlist(readFileSync(plistPath, "utf8"), appPackage.version));
 
   const outZip = path.join(release, `Hardware-Patriots-${appPackage.version}-mac-${arch}.zip`);
   rmSync(outZip, { force: true });

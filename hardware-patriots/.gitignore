@@ -20,6 +20,7 @@
 # production
 /build
 /release
+/Hardware-Patriots-*.zip
 
 # misc
 .DS_Store

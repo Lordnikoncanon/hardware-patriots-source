@@ -2,8 +2,12 @@ Unicode true
 
 !include "MUI2.nsh"
 
+!ifndef APP_VERSION
+  !define APP_VERSION "0.50.1"
+!endif
+
 Name "Hardware Patriots"
-OutFile "..\release\Hardware-Patriots-Setup-0.1.0-win-x64.exe"
+OutFile "..\release\Hardware-Patriots-Setup-${APP_VERSION}-win-x64.exe"
 InstallDir "$LOCALAPPDATA\Hardware Patriots"
 RequestExecutionLevel user
 ShowInstDetails show

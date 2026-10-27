@@ -110,7 +110,7 @@ export function SpoolFormDialog({
         <DialogHeader>
           <DialogTitle>{mode === "edit" ? "Edit spool" : "Add a spool"}</DialogTitle>
           <DialogDescription>
-            Choose the brand, type, color, best use, printer, and printer case. Notes are optional.
+            Choose the brand, type, color, best use, printer, and filament storage. Notes are optional.
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={submit} className="grid gap-4">
@@ -226,9 +226,9 @@ export function SpoolFormDialog({
             />
             <OptionSelect
               id="field-printer-case"
-              label="Printer case"
+              label="Filament storage"
               value={draft.printerCase}
-              placeholder="Choose a printer case"
+              placeholder="Choose filament storage"
               error={errors.printerCase}
               onValueChange={(value) => setField("printerCase", value)}
               groups={[{ options: options(PRINTER_CASES) }]}

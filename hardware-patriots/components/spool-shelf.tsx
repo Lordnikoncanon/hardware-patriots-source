@@ -4,6 +4,7 @@ import { useEffect, useLayoutEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
 
 import { BrandDialog } from "@/components/brand-dialog";
+import { HelpDialog } from "@/components/help-dialog";
 import { OptionSelect } from "@/components/option-select";
 import { SpoolFormDialog } from "@/components/spool-form-dialog";
 import { Button } from "@/components/ui/button";
@@ -50,6 +51,7 @@ import {
   type SpoolInput,
 } from "@/lib/inventory";
 import { cn } from "@/lib/utils";
+import { appVersion } from "@/lib/version";
 
 function spoolName(spool: Pick<Spool, "brand" | "color" | "type">) {
   return `${spool.brand} ${spool.color.toLowerCase()} ${spool.type}`;
@@ -119,6 +121,7 @@ export function SpoolShelf() {
   const [formMode, setFormMode] = useState<"create" | "edit" | null>(null);
   const [editing, setEditing] = useState<Spool | null>(null);
   const [brandsOpen, setBrandsOpen] = useState(false);
+  const [helpOpen, setHelpOpen] = useState(false);
   const [pendingRemove, setPendingRemove] = useState<Spool | null>(null);
   const [clearOpen, setClearOpen] = useState(false);
 
@@ -269,8 +272,8 @@ export function SpoolShelf() {
 
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col px-4 py-6 sm:px-6 sm:py-8">
-      <header className="flex flex-col gap-6 border-b border-border pb-6 sm:flex-row sm:items-end sm:justify-between">
-        <div className="max-w-2xl">
+      <header className="flex flex-col gap-6 border-b border-border pb-6 sm:flex-row sm:items-start sm:justify-between">
+        <div className="min-w-0 flex-1">
           <div className="flex items-center gap-3">
             <SpoolMark className="size-11 text-primary" />
             <div>
@@ -280,11 +283,11 @@ export function SpoolShelf() {
           </div>
           <p className="mt-4 text-sm leading-6 text-muted-foreground">
             Inventory for the Bambu and Prusa printers. Pick the material and color from the lists, then record the
-            best use and which printer case the spool lives in. Bambu Lab, Sunlu, Fiberon, Siraya Tech, American
+            best use and which filament storage the spool lives in. Bambu Lab, Sunlu, Fiberon, Siraya Tech, American
             Filament, 3DFuel, and Prusament are already listed.
           </p>
         </div>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex shrink-0 flex-wrap gap-2 sm:justify-end">
           <Button type="button" variant="outline" className="bg-card" onClick={toggleTheme}>
             <Sun className="hidden dark:block" />
             <Moon className="dark:hidden" />
@@ -301,6 +304,19 @@ export function SpoolShelf() {
             }}
           >
             Brands
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            className="bg-card"
+            onClick={() => {
+              setHelpOpen(true);
+              setBrandsOpen(false);
+              setFormMode(null);
+            }}
+          >
+            Help
+            <span className="text-muted-foreground tabular-nums">{appVersion}</span>
           </Button>
           <Button type="button" onClick={openCreate}>
             Add spool
@@ -360,7 +376,7 @@ export function SpoolShelf() {
           <SpoolMark className="mx-auto size-16 text-primary" />
           <h2 className="mt-4 text-3xl font-semibold tracking-tight">The shelf is empty</h2>
           <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-muted-foreground">
-            Add a spool with its brand, type, color, best use, and printer case. Or load a few examples to see how a
+            Add a spool with its brand, type, color, best use, and filament storage. Or load a few examples to see how a
             filled shelf reads.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-2">
@@ -439,12 +455,12 @@ export function SpoolShelf() {
             />
             <OptionSelect
               id="filter-case"
-              label="Printer case"
+              label="Filament storage"
               value={filters.printerCase}
-              placeholder="All cases"
+              placeholder="All storage"
               triggerClassName="bg-card"
               onValueChange={(value) => updateFilter("printerCase", value)}
-              groups={[{ options: [{ value: "all", label: "All cases" }, ...caseFilter.map((value) => ({ value, label: value }))] }]}
+              groups={[{ options: [{ value: "all", label: "All storage" }, ...caseFilter.map((value) => ({ value, label: value }))] }]}
             />
             <OptionSelect
               id="shelf-sort"
@@ -610,6 +626,8 @@ export function SpoolShelf() {
           onSave={saveSpool}
         />
       ) : null}
+
+      <HelpDialog open={helpOpen} onOpenChange={setHelpOpen} />
 
       <BrandDialog
         open={brandsOpen}
