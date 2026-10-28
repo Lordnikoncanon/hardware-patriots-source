@@ -1,5 +1,6 @@
 appId: com.hardwarepatriots.spoolshelf
 productName: Hardware Patriots
+publish: null
 copyright: Copyright © 2026 Hardware Patriots
 asar: true
 artifactName: Hardware-Patriots-${version}-${os}-${arch}.${ext}

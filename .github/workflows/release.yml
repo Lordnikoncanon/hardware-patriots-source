@@ -16,13 +16,13 @@ jobs:
         include:
           - os: windows-latest
             label: Windows
-            build: npx electron-builder --win nsis --x64
+            build: npx electron-builder --win nsis --x64 --publish never
           - os: macos-latest
             label: Mac
-            build: npx electron-builder --mac --arm64 --x64
+            build: npx electron-builder --mac --arm64 --x64 --publish never
           - os: ubuntu-latest
             label: Linux
-            build: npx electron-builder --linux AppImage deb --x64
+            build: npx electron-builder --linux AppImage deb --x64 --publish never
     steps:
       - uses: actions/checkout@v5
       - name: Locate the app
@@ -73,7 +73,6 @@ jobs:
   release:
     name: Publish to GitHub
     needs: build
-    if: ${{ always() && !cancelled() }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
