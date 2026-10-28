@@ -16,7 +16,7 @@ Bambu Lab spools use Bambu’s official colors for each material, such as PLA Ba
 
 ## Downloads
 
-Version 0.50.1 is on the release page. Click the file for your computer. The Windows file is a program. It ends in `.exe`, so it is not a zip. Do not unzip it. Open it.
+The programs on the release page today are version 0.50.1. This folder is version 1.0.0. After you push it, run **Actions → Release installers → Run workflow**. When that run is green, download the files named **1.0.0**. The Windows file is a program. It ends in `.exe`, so it is not a zip. Do not unzip it. Open it.
 
 | Computer | Download | About this size |
 | --- | --- | --- |

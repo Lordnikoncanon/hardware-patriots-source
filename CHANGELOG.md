@@ -1,8 +1,8 @@
 # Changelog
 
-These are the source changes after the 0.50.1 installers. The Windows, Mac, and Linux files already on the release page do not include this list yet. This update is for the project folder.
+## 1.0.0 — October 27, 2026
 
-## October 27, 2026
+The 0.50.1 installers do not include this version. Push this folder, then run **Release installers**. The new programs are named 1.0.0.
 
 ### Add and subtract filament
 
@@ -28,10 +28,21 @@ These are the source changes after the 0.50.1 installers. The Windows, Mac, and 
 - `lib/bambu-catalog.ts`
 - `CHANGELOG.md`
 
-## How to update the folder
+## How to start over
 
-1. Download `Hardware-Patriots-source.zip`. The file name must end in `.zip`.
-2. Unzip it.
-3. Open your project and go into the `hardware-patriots` folder.
-4. Copy these unzipped files into that folder and replace the old ones. Leave the `.git` folder alone if you see one in the parent folder.
-5. Commit the changes and push them.
+The steps are in `START-HERE.txt`. These files are the whole project. Put them in the `hardware-patriots-source` repository. Open `START-HERE.txt` after you unzip the download.
+
+## How to update the executables
+
+The executables are built on GitHub after the folder is pushed.
+
+1. Open the repository on GitHub.
+2. Click **Actions**.
+3. Click **Release installers** on the left.
+4. Click **Run workflow**. Leave the branch on `main`. Click the green **Run workflow** button.
+5. Wait until Windows, Mac, Linux, and Publish are green.
+6. Open **Releases**. Download the files named **1.0.0**.
+
+The Windows file ends in `.exe`. Open it. Do not unzip it. The Mac files end in `.zip`.
+
+Do not click **Re-run jobs** on an old red run. That builds the old code again.

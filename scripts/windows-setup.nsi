@@ -3,7 +3,7 @@ Unicode true
 !include "MUI2.nsh"
 
 !ifndef APP_VERSION
-  !define APP_VERSION "0.50.1"
+  !define APP_VERSION "1.0.0"
 !endif
 
 Name "Hardware Patriots"

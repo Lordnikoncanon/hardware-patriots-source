@@ -1,6 +1,6 @@
 {
   "name": "hardware-patriots",
-  "version": "0.50.1",
+  "version": "1.0.0",
   "private": true,
   "description": "Filament inventory for Bambu and Prusa printers.",
   "author": "Hardware Patriots <support@hardwarepatriots.local>",

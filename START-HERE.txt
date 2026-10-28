@@ -1,0 +1,17 @@
+Hardware Patriots version 1.0.0
+
+These files are the whole app. This folder is not a Git repository. Do not open it in GitHub Desktop by itself.
+
+Put these files into the repository named hardware-patriots-source.
+
+1. Open GitHub Desktop.
+2. If hardware-patriots-source is missing, click File, then Clone repository. Choose hardware-patriots-source and clone it to Documents.
+3. Choose hardware-patriots-source in the Current repository list.
+4. Click Repository, then Show in Explorer.
+5. Delete every file and folder you see in that window. Leave a folder named .git alone if you can see it.
+6. Copy everything from this unzipped folder into that window. Choose Replace when Windows asks.
+7. Go back to GitHub Desktop. You should see a list of changed files.
+8. In the summary box, type: Start over with version 1.0.0
+9. Click Commit to main, then Push origin.
+
+After the push, open the repository on GitHub. Click Actions, then Release installers, then Run workflow. When the run is green, the Releases page has the programs named 1.0.0.

@@ -39,8 +39,8 @@ export function HelpDialog({
           <p>A spool under 20% is marked low. Search and the filters narrow the shelf.</p>
           <p>The shelf is saved on this computer. Nothing is sent to a server.</p>
           <p>
-            Changes after the 0.50.1 installers: + Add and − Subtract, a saved history for each change, Bambu Lab’s
-            official colors, and a cost on every spool. The full list is in CHANGELOG.md in the project folder.
+            Version 1.0.0 adds + Add and − Subtract, a saved history for each change, Bambu Lab’s official colors, and a
+            cost on every spool. The full list is in CHANGELOG.md in the project folder.
           </p>
         </div>
         <DialogFooter>
